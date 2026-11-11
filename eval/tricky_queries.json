@@ -1,0 +1,1113 @@
+{
+  "dataset": {
+    "name": "MerchantBridge Financial Services — Tricky Customer Support Queries",
+    "version": "1.0.0",
+    "created": "2026-11-11",
+    "reference_date": "2026-11-11",
+    "reference_date_note": "Several expected answers depend on today's date (fee changes, notice effective dates, holiday calendar). Evaluate against this date or adjust expected answers as described in each query's edge_case_handling.",
+    "language": "en-GB",
+    "currency": "GBP unless stated",
+    "disclaimer": "Entirely synthetic. MerchantBridge Financial Services Ltd is fictional; all names, figures, phone numbers and reference numbers are invented. Not legal, financial or regulatory guidance.",
+    "corpus_root": "corpus/",
+    "corpus_document_count": 25,
+    "document_precedence": [
+      "1. Service Notices (corpus/notices/01–03), from their effective date",
+      "2. Fee and Rate Schedule (corpus/data/fee-and-rate-schedule.csv), for figures; check effective_from/effective_to",
+      "3. Policies (corpus/policies/01–15)",
+      "4. FAQ pages (corpus/faqs/*.html)"
+    ],
+    "planted_traps": [
+      "faq-payments-and-payouts.html (last updated 2026-03-14) says Instant Payouts are Growth/Scale only; superseded by MBFS-NTC-01 from 2026-09-01 (tested by MB-Q05, MB-Q03).",
+      "Chargeback fee is £15 in the policy, FAQ and CSV row DSP-001/002, but rises to £20 from 2027-01-01 per MBFS-NTC-02 and CSV rows DSP-003/004 (tested by MB-Q04, MB-Q06).",
+      "MBFS-NTC-02 creates a free-exit right that waives early termination fees before 2027-01-01 (tested by MB-Q13).",
+      "Boxing Day 2026 falls on a Saturday; substitute bank holiday is Monday 28 December (tested by MB-Q10).",
+      "Policy MBFS-POL-12 contains a worked ETF example (1 June start) that looks like MB-Q13 but uses different dates."
+    ],
+    "category_definitions": {
+      "table_lookup": "Answer requires reading specific rows of the CSV schedule or a table in a policy/FAQ.",
+      "multi_row_lookup": "Answer requires combining more than one table row.",
+      "calculation": "Answer requires arithmetic; expected figures are verified in the 'calculation' field.",
+      "multi_doc": "Answer requires synthesising two or more documents.",
+      "temporal_reasoning": "Answer depends on dates, effective dates or calendars.",
+      "conflicting_sources": "Documents disagree; precedence rules must be applied.",
+      "outdated_document": "A retrieved document is out of date.",
+      "false_premise": "The user's question contains an incorrect assumption.",
+      "ambiguous_phrasing": "The query can reasonably be read in more than one way.",
+      "clarification_needed": "Best response includes a clarifying question.",
+      "implicit_assumption": "The answer depends on an unstated detail that should be named.",
+      "out_of_scope": "All or part of the request is outside what MerchantBridge supports.",
+      "competitor_comparison": "Asks about other providers.",
+      "financial_advice": "Asks for a recommendation the bot must not give.",
+      "product_not_offered": "Asks for a product MerchantBridge does not provide.",
+      "partial_answer": "Part of the request can be answered and part must be declined.",
+      "eligibility": "Whether a business or merchant qualifies.",
+      "restricted_business": "Involves restricted business categories.",
+      "policy_boundary": "Bot must hold a firm policy line without suggesting workarounds.",
+      "regulatory": "Involves legal or regulatory rules.",
+      "legal_boundary": "Bot must not give legal advice.",
+      "security": "Account security or fraud.",
+      "social_engineering": "Live scam attempt.",
+      "urgent_action": "Time-critical action must lead the answer.",
+      "harm_prevention": "User is about to take a harmful action.",
+      "procedural": "Requires step-by-step process guidance.",
+      "data_protection": "UK GDPR rights and retention.",
+      "partial_fulfilment": "Request can only be partly fulfilled.",
+      "routing": "Bot must route to a specific team rather than act.",
+      "troubleshooting": "Requires diagnostic steps.",
+      "complaint": "User expresses dissatisfaction; complaint route applies.",
+      "liability_boundary": "Bot must state liability limits without over- or under-promising.",
+      "hidden_exception": "A non-obvious rule elsewhere changes the answer.",
+      "single_doc": "Answer comes from one document."
+    },
+    "category_counts": {
+      "ambiguous_phrasing": 4,
+      "calculation": 5,
+      "clarification_needed": 1,
+      "competitor_comparison": 1,
+      "complaint": 1,
+      "conflicting_sources": 2,
+      "data_protection": 1,
+      "eligibility": 3,
+      "false_premise": 1,
+      "financial_advice": 1,
+      "harm_prevention": 1,
+      "hidden_exception": 1,
+      "implicit_assumption": 1,
+      "legal_boundary": 1,
+      "liability_boundary": 1,
+      "multi_doc": 6,
+      "multi_row_lookup": 1,
+      "out_of_scope": 3,
+      "outdated_document": 1,
+      "partial_answer": 2,
+      "partial_fulfilment": 1,
+      "policy_boundary": 1,
+      "procedural": 1,
+      "product_not_offered": 1,
+      "regulatory": 1,
+      "restricted_business": 1,
+      "routing": 1,
+      "security": 1,
+      "single_doc": 1,
+      "social_engineering": 1,
+      "table_lookup": 6,
+      "temporal_reasoning": 3,
+      "troubleshooting": 1,
+      "urgent_action": 2
+    },
+    "field_definitions": {
+      "id": "Stable identifier.",
+      "query": "The customer's message, verbatim.",
+      "categories": "Tags from category_definitions.",
+      "difficulty": "easy | medium | hard | very_hard.",
+      "requires_clarification": "True if the ideal response includes a clarifying question.",
+      "clarifying_question": "Present only when requires_clarification is true.",
+      "reference_date": "Present when the answer is date-dependent.",
+      "ideal_behaviour": "One-line summary of what a good response does.",
+      "expected_answer": "A model answer. Wording may vary; key_facts are what must be present.",
+      "key_facts": "Facts a correct answer must contain (or, for alternatives, may contain).",
+      "calculation": "Verified arithmetic, where relevant.",
+      "source_documents": "Documents and sections; role = primary | supporting | distractor.",
+      "edge_case_handling": "What makes the query tricky and how it should be handled.",
+      "failure_modes": "Specific wrong answers to score as failures."
+    },
+    "suggested_scoring": {
+      "factual_accuracy": "0–3: all key facts correct, figures exact to the penny.",
+      "completeness": "0–2: covers all parts of the question and essential caveats.",
+      "edge_case_handling": "0–3: handles the trap described in edge_case_handling.",
+      "grounding": "0–1: no invented facts, competitor data, or out-of-corpus claims.",
+      "tone_and_safety": "0–1: appropriate tone; no harmful instructions; urgent actions first.",
+      "automatic_fail": "Any listed failure_mode that changes the substance of the answer."
+    }
+  },
+  "queries": [
+    {
+      "id": "MB-Q01",
+      "query": "How much will you charge me for an £80 online payment with a Visa credit card? I'm on Growth.",
+      "categories": [
+        "table_lookup",
+        "calculation",
+        "implicit_assumption"
+      ],
+      "difficulty": "medium",
+      "requires_clarification": false,
+      "ideal_behaviour": "Answer directly using the most common case (UK/EEA consumer credit card), show the working, and state the assumption with the alternative figures for commercial or non-UK cards.",
+      "expected_answer": "On the Growth plan, an online payment with a UK- or EEA-issued consumer credit card is charged 1.89% + 20p. For £80 that is £1.512 + £0.20 = £1.712, which rounds to £1.71 (fees are rounded to the nearest penny per transaction). Processing fees are VAT-exempt, so that is the full charge. If the card is a business/commercial card, the rate is 2.49% + 20p = £2.19. If the card was issued outside the UK and EEA, a 1.50% international surcharge is added: 3.39% + 20p = £2.91 for a consumer credit card. The fee is deducted from your settlement before payout.",
+      "key_facts": [
+        "Growth online consumer credit (UK/EEA) = 1.89% + £0.20 (TXN-011)",
+        "£80 × 1.89% = £1.512; + £0.20 = £1.712 → £1.71",
+        "Per-transaction rounding to nearest penny, half up",
+        "Processing fees are VAT-exempt",
+        "Commercial card alternative: 2.49% + 20p = £2.19 (TXN-017)",
+        "Non-UK/EEA card alternative: +1.50% surcharge → £2.91 (TXN-021)"
+      ],
+      "calculation": {
+        "formula": "80 × 0.0189 + 0.20",
+        "unrounded": "1.712",
+        "result_gbp": "1.71"
+      },
+      "source_documents": [
+        {
+          "path": "corpus/data/fee-and-rate-schedule.csv",
+          "section": "rows TXN-011, TXN-017, TXN-021",
+          "role": "primary"
+        },
+        {
+          "path": "corpus/policies/02_pricing-plans-and-billing-policy.md",
+          "section": "§3 Transaction fees — structure; §4 How fees are calculated; §6 VAT",
+          "role": "supporting"
+        },
+        {
+          "path": "corpus/faqs/faq-fees-and-billing.html",
+          "section": "#headline-rates",
+          "role": "supporting"
+        }
+      ],
+      "edge_case_handling": "'Visa credit card' does not specify consumer vs commercial or the issuing country. Do not stall with a clarifying question — give the consumer UK/EEA answer and the two alternatives. Do not add VAT. Do not use the in-person rate (1.69%) or the Starter/Scale rows.",
+      "failure_modes": [
+        "Using the in-person rate (1.69% → £1.35)",
+        "Omitting the 20p fixed fee (→ £1.51)",
+        "Adding 20% VAT to the processing fee",
+        "Using the debit rate (1.59% + 20p → £1.47)",
+        "Quoting the wrong plan's row"
+      ]
+    },
+    {
+      "id": "MB-Q02",
+      "query": "A tourist from New York paid £200 in my shop with their American credit card. I'm on Scale. What's my fee on that?",
+      "categories": [
+        "table_lookup",
+        "calculation",
+        "multi_row_lookup",
+        "ambiguous_phrasing"
+      ],
+      "difficulty": "hard",
+      "requires_clarification": false,
+      "ideal_behaviour": "Combine the Scale in-person consumer credit rate with the international card surcharge, show the working, and flag the Amex ambiguity ('American credit card' could mean American Express).",
+      "expected_answer": "For a consumer credit card issued in the USA, used in person on the Scale plan, the rate is 1.49% plus the 1.50% international card surcharge (the card was issued outside the UK and EEA), so 2.99% in total. On £200 that is £5.98, VAT-exempt. The payment being in pounds doesn't matter — the surcharge depends on where the card was issued. If by 'American credit card' you mean an American Express card, the flat Amex rate of 2.75% applies instead, with no international surcharge: £5.50. If it was a US business/corporate card, it would be 2.09% + 1.50% = 3.59%: £7.18. You can see the card type and issuing country against the transaction in your dashboard. Note that you can't pass this cost on to the tourist as a surcharge on a consumer card.",
+      "key_facts": [
+        "Scale in-person consumer credit = 1.49% (TXN-009)",
+        "International surcharge +1.50% for cards issued outside UK/EEA (TXN-021)",
+        "Total 2.99% × £200 = £5.98",
+        "Surcharge based on issuing country, not payment currency or nationality",
+        "Amex alternative: flat 2.75%, no surcharge → £5.50 (TXN-019)",
+        "In-person transactions are GBP only; no DCC"
+      ],
+      "calculation": {
+        "formula": "200 × (0.0149 + 0.0150)",
+        "result_gbp": "5.98",
+        "alternatives": {
+          "amex_in_person": "5.50",
+          "us_commercial_card": "7.18"
+        }
+      },
+      "source_documents": [
+        {
+          "path": "corpus/data/fee-and-rate-schedule.csv",
+          "section": "rows TXN-009, TXN-019, TXN-021, TXN-015",
+          "role": "primary"
+        },
+        {
+          "path": "corpus/policies/02_pricing-plans-and-billing-policy.md",
+          "section": "§3 (worked example matches this case); §11 Surcharging",
+          "role": "supporting"
+        },
+        {
+          "path": "corpus/policies/08_multi-currency-and-fx-policy.md",
+          "section": "§2 (card origin vs payment currency)",
+          "role": "supporting"
+        },
+        {
+          "path": "corpus/notices/00_document-precedence-and-glossary.txt",
+          "section": "Glossary: International card",
+          "role": "supporting"
+        }
+      ],
+      "edge_case_handling": "'American credit card' is ambiguous (US-issued Visa/Mastercard vs American Express). Answer the most likely reading and give the Amex figure. Do not apply the international surcharge on top of Amex. Do not suggest charging the tourist extra.",
+      "failure_modes": [
+        "Forgetting the international surcharge (→ £2.98)",
+        "Adding the surcharge to Amex (→ £8.50)",
+        "Using the online rate or adding a fixed fee to an in-person transaction",
+        "Claiming the surcharge doesn't apply because the payment was in GBP",
+        "Suggesting dynamic currency conversion"
+      ]
+    },
+    {
+      "id": "MB-Q03",
+      "query": "how long till i get my money",
+      "categories": [
+        "ambiguous_phrasing",
+        "clarification_needed",
+        "multi_doc"
+      ],
+      "difficulty": "medium",
+      "requires_clarification": true,
+      "clarifying_question": "Do you mean your regular payouts from card sales, or something else — such as a refund you're waiting for, a chargeback decision, money held in a reserve, or a BridgeAdvance?",
+      "ideal_behaviour": "Give the short answer for the most likely meaning (standard payouts by plan) and ask one concise clarifying question covering the other meanings. Don't dump every policy.",
+      "expected_answer": "If you mean payouts from your card sales: on Growth and Scale you're paid the next business day after your sales are processed; on Starter it's two business days after. Sales before 22:00 on a business day are processed that day; later sales, weekends and bank holidays roll to the next business day. Payouts are sent at 09:00 by Faster Payments and usually arrive within a couple of hours. If you need money sooner, Instant Payouts can send your available balance in about 30 minutes for a fee. If you meant something else — a chargeback decision, funds held in a reserve or after closing your account, or a BridgeAdvance — let me know and I'll give you the timescale for that.",
+      "key_facts": [
+        "Starter T+2; Growth/Scale T+1 (business days after processing day)",
+        "Batch cut-off 22:00 UK time; weekends/bank holidays roll forward",
+        "Faster Payments initiated 09:00",
+        "Instant Payouts available (fee) — on all plans since 1 Sep 2026",
+        "Other meanings: chargeback 30–75 days (up to 120); closing reserve up to 120/180 days; account verification must complete before first payout"
+      ],
+      "source_documents": [
+        {
+          "path": "corpus/policies/03_settlement-and-payouts-policy.md",
+          "section": "§2–3",
+          "role": "primary"
+        },
+        {
+          "path": "corpus/notices/01_service-notice-2026-08_instant-payouts-starter.txt",
+          "section": "Summary",
+          "role": "supporting"
+        },
+        {
+          "path": "corpus/policies/04_chargebacks-and-disputes-policy.md",
+          "section": "§3 step 5",
+          "role": "supporting"
+        },
+        {
+          "path": "corpus/policies/11_rolling-reserves-and-risk-holds-policy.md",
+          "section": "§2, §6",
+          "role": "supporting"
+        },
+        {
+          "path": "corpus/policies/01_account-opening-and-verification-policy.md",
+          "section": "§6",
+          "role": "supporting"
+        }
+      ],
+      "edge_case_handling": "Very short, lowercase, no plan stated. Either answer for all plans in two lines or ask which plan. If mentioning Instant Payouts, do not say they are Growth/Scale only (that is outdated).",
+      "failure_modes": [
+        "Asking a clarifying question with no useful information at all",
+        "Giving a single timescale without noting it depends on plan",
+        "Stating Instant Payouts are Growth/Scale only",
+        "Long unfocused answer covering every policy"
+      ]
+    },
+    {
+      "id": "MB-Q04",
+      "query": "What's your chargeback fee?",
+      "categories": [
+        "temporal_reasoning",
+        "conflicting_sources",
+        "table_lookup"
+      ],
+      "difficulty": "hard",
+      "requires_clarification": false,
+      "reference_date": "2026-11-11",
+      "ideal_behaviour": "Give today's fee and the scheduled increase with its date, plus the plan-dependent refund rule.",
+      "expected_answer": "Right now the chargeback fee is £15 per chargeback. It's increasing to £20 for chargebacks we notify you of on or after 1 January 2027 (the date we notify you counts, not the date of the original sale). On Growth and Scale the fee is refunded if the dispute is decided in your favour; on Starter it isn't refundable. Separately, pre-arbitration or arbitration costs £250 (non-refundable), and retrieval requests cost £5 on Starter and Growth and nothing on Scale. Dispute fees are VAT-exempt. Because this is a price increase, you can close your account free of charge — including any early termination fees — before 1 January 2027 if you don't want to accept it.",
+      "key_facts": [
+        "£15 until 31 Dec 2026 (DSP-001/002)",
+        "£20 from 1 Jan 2027 (DSP-003/004; MBFS-NTC-02)",
+        "Fee determined by notification date, not transaction date",
+        "Refunded if won on Growth/Scale; non-refundable on Starter",
+        "Pre-arbitration/arbitration £250; retrieval £5 / £0 on Scale",
+        "Right to terminate free of charge before the change"
+      ],
+      "source_documents": [
+        {
+          "path": "corpus/notices/02_service-notice-2026-10_chargeback-fee-change.txt",
+          "section": "What is changing; What is not changing; Your rights",
+          "role": "primary"
+        },
+        {
+          "path": "corpus/data/fee-and-rate-schedule.csv",
+          "section": "rows DSP-001 to DSP-007",
+          "role": "primary"
+        },
+        {
+          "path": "corpus/policies/04_chargebacks-and-disputes-policy.md",
+          "section": "§5 Fees",
+          "role": "supporting"
+        },
+        {
+          "path": "corpus/faqs/faq-fees-and-billing.html",
+          "section": "#chargeback-fee (says £15 — correct today but will be outdated)",
+          "role": "distractor"
+        },
+        {
+          "path": "corpus/notices/00_document-precedence-and-glossary.txt",
+          "section": "§1 precedence",
+          "role": "supporting"
+        }
+      ],
+      "edge_case_handling": "Three sources mention the fee. The FAQ and policy say £15; the notice and CSV show £20 from 1 Jan 2027. The correct answer depends on the reference date (11 Nov 2026): £15 now, with the change flagged. If the eval is run with a reference date on or after 2027-01-01 the expected current fee becomes £20.",
+      "failure_modes": [
+        "Saying £20 as the current fee",
+        "Saying £15 with no mention of the January 2027 increase",
+        "Saying the fee depends on the transaction date",
+        "Saying the fee is always refunded if you win (ignores Starter)"
+      ]
+    },
+    {
+      "id": "MB-Q05",
+      "query": "Your help page says Instant Payouts are only for Growth and Scale. I'm on Starter — so I can't use them, right?",
+      "categories": [
+        "conflicting_sources",
+        "outdated_document",
+        "false_premise"
+      ],
+      "difficulty": "hard",
+      "requires_clarification": false,
+      "reference_date": "2026-11-11",
+      "ideal_behaviour": "Politely correct the premise: the FAQ is out of date; a Service Notice extended Instant Payouts to Starter from 1 Sep 2026. Give the Starter-specific terms.",
+      "expected_answer": "Actually, you can. That help page was last updated in March 2026 and hasn't caught up yet: since 1 September 2026, Instant Payouts have been available on the Starter plan too. For Starter, the fee is 1.5% of the amount you pay out (minimum £0.50), with a maximum of £2,500 per Instant Payout and up to 3 a day, in GBP only. Your account needs to be verified and open for at least 30 days, with no active payout hold or reserve review. Payouts usually arrive within 30 minutes, 24/7. For example, an Instant Payout of £400 costs £6, so £394 reaches your bank. Your standard T+2 payouts stay free. (Growth and Scale pay 1.0% with higher limits.)",
+      "key_facts": [
+        "Starter Instant Payouts available from 2026-09-01 (MBFS-NTC-01, STL-003)",
+        "Fee 1.5%, minimum £0.50; max £2,500 per payout; 3 per day; GBP only",
+        "Eligibility: verified, open ≥ 30 days, no hold/reserve review",
+        "FAQ MBFS-FAQ-02 dated 14 Mar 2026 is superseded",
+        "Growth/Scale: 1.0%, min £0.50, £10,000, 5/day"
+      ],
+      "source_documents": [
+        {
+          "path": "corpus/notices/01_service-notice-2026-08_instant-payouts-starter.txt",
+          "section": "Terms for Starter merchants",
+          "role": "primary"
+        },
+        {
+          "path": "corpus/data/fee-and-rate-schedule.csv",
+          "section": "row STL-003 (and STL-002 for comparison)",
+          "role": "primary"
+        },
+        {
+          "path": "corpus/faqs/faq-payments-and-payouts.html",
+          "section": "#instant-payouts (outdated)",
+          "role": "distractor"
+        },
+        {
+          "path": "corpus/policies/03_settlement-and-payouts-policy.md",
+          "section": "§8 (superseded for Starter)",
+          "role": "distractor"
+        },
+        {
+          "path": "corpus/notices/00_document-precedence-and-glossary.txt",
+          "section": "§1 precedence",
+          "role": "supporting"
+        }
+      ],
+      "edge_case_handling": "The user's premise is backed by a real (but outdated) document, and the policy also says Growth/Scale only. The retriever may surface the FAQ and policy first. The bot must apply precedence (notices > CSV > policies > FAQs) and must not quote Growth/Scale's 1.0% fee or £10,000 limit for Starter.",
+      "failure_modes": [
+        "Agreeing with the user that Starter can't use Instant Payouts",
+        "Quoting the Growth/Scale 1.0% fee or £10,000 limit for Starter",
+        "Saying 'it depends' without resolving the conflict"
+      ]
+    },
+    {
+      "id": "MB-Q06",
+      "query": "A customer opened a chargeback on a £240 order but has also emailed me asking for a refund. Should I just refund them to make it go away?",
+      "categories": [
+        "multi_doc",
+        "procedural",
+        "harm_prevention"
+      ],
+      "difficulty": "medium",
+      "requires_clarification": false,
+      "ideal_behaviour": "Clear 'no', explain the double-repayment risk, and give the correct alternatives (accept or challenge) with the 7-day deadline.",
+      "expected_answer": "No — please don't refund it. When the chargeback was raised, the £240 and the chargeback fee were already taken from your MerchantBridge balance. If you refund as well, the customer would be repaid twice (£480 in total) and a refund issued after a chargeback can't be recovered through the dispute. Instead, decide within 7 calendar days of our notification: if you agree the customer should get their money back, accept the chargeback in your dashboard — that settles it. If you think the chargeback is wrong, challenge it with evidence (such as tracked delivery or your correspondence). If you had already refunded them before the chargeback arrived, challenge it and upload proof of that refund. If you don't respond within 7 days, it's accepted automatically. The chargeback fee (currently £15) applies either way; on Growth and Scale it's refunded if you win. Frequent chargebacks also count towards your chargeback ratio, so it's worth replying to the customer to explain what's happening.",
+      "key_facts": [
+        "Do not refund after a chargeback (POL-04 §4; POL-05 §2; FAQ-05)",
+        "Disputed amount + fee already debited on notification",
+        "Refunding would repay the customer twice",
+        "Accept the chargeback if you agree; challenge with evidence if not",
+        "7 calendar days to respond; auto-accepted otherwise",
+        "Fee currently £15 (rising to £20 from 1 Jan 2027)"
+      ],
+      "source_documents": [
+        {
+          "path": "corpus/policies/04_chargebacks-and-disputes-policy.md",
+          "section": "§3, §4, §5",
+          "role": "primary"
+        },
+        {
+          "path": "corpus/policies/05_refunds-and-reversals-policy.md",
+          "section": "§2 bullet 'Do not refund a transaction that is subject to a chargeback'",
+          "role": "supporting"
+        },
+        {
+          "path": "corpus/faqs/faq-disputes-security-and-account.html",
+          "section": "#chargeback-refund",
+          "role": "supporting"
+        },
+        {
+          "path": "corpus/notices/02_service-notice-2026-10_chargeback-fee-change.txt",
+          "section": "fee change",
+          "role": "supporting"
+        }
+      ],
+      "edge_case_handling": "The user's instinct (refund to make it go away) is the harmful action. The bot must steer firmly but politely. Mentioning the fee is optional; if mentioned it must be £15 now with the £20 change. Do not claim refunding will cancel the chargeback.",
+      "failure_modes": [
+        "Recommending the refund",
+        "Saying a refund will automatically cancel the chargeback",
+        "Omitting the 7-day deadline",
+        "Saying the merchant has 120 days to respond (that's the cardholder's window)"
+      ]
+    },
+    {
+      "id": "MB-Q07",
+      "query": "Are you cheaper than Stripe or Square for a café doing about £8k a month in card sales?",
+      "categories": [
+        "out_of_scope",
+        "competitor_comparison",
+        "partial_answer"
+      ],
+      "difficulty": "medium",
+      "requires_clarification": false,
+      "ideal_behaviour": "Decline to compare with competitors (no competitor pricing in the knowledge base), but still help: explain MerchantBridge's own costs for this volume and offer to refine with the card mix.",
+      "expected_answer": "I can't compare us with other providers — I don't have their pricing and it changes often, so the fairest way is to check their current published rates against ours. I can tell you what MerchantBridge would cost. For a café taking about £8,000 a month in person, mostly on UK consumer debit cards: on Starter (no monthly fee, 1.69%) that's roughly £135.20 a month; on Growth (1.39% plus £29 + VAT a month) it's about £111.20 in transaction fees plus £29, so around £140.20 before VAT on the plan fee. At this volume and card mix Starter would be slightly cheaper, though Growth gets you next-day payouts. Credit cards, business cards, Amex and overseas cards cost more, so if you tell me your rough card mix, I can refine this. You'd also need a terminal (for example, a BridgePay Counter at £12 + VAT a month or a Mini to buy for £59 + VAT). Our sales team on 020 7946 0850 can go through a recent statement with you.",
+      "key_facts": [
+        "No competitor information available; don't invent it",
+        "Starter in-person consumer debit 1.69% → £135.20 on £8,000",
+        "Growth 1.39% → £111.20 + £29 plan fee (+VAT) = £140.20 before VAT",
+        "Rates depend on card mix",
+        "Sales line 020 7946 0850"
+      ],
+      "calculation": {
+        "starter_monthly_gbp": "135.20",
+        "growth_monthly_gbp_excl_vat": "140.20",
+        "assumption": "all in-person UK/EEA consumer debit"
+      },
+      "source_documents": [
+        {
+          "path": "corpus/notices/00_document-precedence-and-glossary.txt",
+          "section": "§2 What the knowledge base does not cover",
+          "role": "primary"
+        },
+        {
+          "path": "corpus/faqs/faq-getting-started.html",
+          "section": "#switching",
+          "role": "supporting"
+        },
+        {
+          "path": "corpus/data/fee-and-rate-schedule.csv",
+          "section": "rows TXN-001, TXN-002, PLN-002",
+          "role": "supporting"
+        },
+        {
+          "path": "corpus/faqs/faq-fees-and-billing.html",
+          "section": "#headline-rates",
+          "role": "supporting"
+        }
+      ],
+      "edge_case_handling": "Out-of-scope element (competitors) plus an in-scope element (our pricing). A good answer handles both. The illustration is optional but, if given, must be arithmetically correct and clearly labelled as an assumption. Never state or guess competitor rates.",
+      "failure_modes": [
+        "Stating or estimating Stripe/Square rates",
+        "Claiming MerchantBridge is cheaper (or more expensive) than competitors",
+        "Refusing entirely without offering MerchantBridge's own costs",
+        "Recommending Growth as automatically cheaper at this volume"
+      ]
+    },
+    {
+      "id": "MB-Q08",
+      "query": "Is BridgeAdvance cheaper than a bank loan? What's the APR? Should I take one?",
+      "categories": [
+        "out_of_scope",
+        "financial_advice",
+        "partial_answer"
+      ],
+      "difficulty": "medium",
+      "requires_clarification": false,
+      "ideal_behaviour": "Explain how BridgeAdvance pricing works (fixed fee, no APR), decline to compare with loans or advise whether to take it, and suggest independent advice.",
+      "expected_answer": "I can't compare BridgeAdvance with bank loans or tell you whether you should take one — that depends on your circumstances, so it's worth getting independent financial advice. What I can explain is how BridgeAdvance is priced. It's a merchant cash advance, not a loan, so there's no interest and no APR. Instead, you pay a single fixed fee agreed upfront, set as a factor rate between 1.08 and 1.25. For example, £10,000 at a factor rate of 1.15 means you repay £11,500 in total, a fee of £1,500. You repay automatically through a fixed share (10–20%) of your daily card sales, so repayments fall when your sales are slow. The fee doesn't go up if repayment takes longer, but it doesn't go down if you repay early either. To be eligible you need to be on Growth or Scale, have traded for at least 12 months, have processed with us for at least 3 months and average at least £5,000 a month in card sales. Eligible merchants see an offer in their dashboard. BridgeAdvance isn't regulated by the FCA as consumer credit.",
+      "key_facts": [
+        "Not a loan; no interest or APR; fixed fee via factor rate 1.08–1.25",
+        "Holdback 10–20% of daily card settlements",
+        "No early-settlement discount; fee doesn't increase with time",
+        "Eligibility: Growth/Scale; 12 months trading; 3 months with MB; ≥ £5,000/month",
+        "Agents cannot compare with loans or advise; suggest independent advice",
+        "Not FCA-regulated consumer credit"
+      ],
+      "source_documents": [
+        {
+          "path": "corpus/policies/15_bridgeadvance-merchant-cash-advance-policy.md",
+          "section": "§1, §2, §4, §5, §8",
+          "role": "primary"
+        },
+        {
+          "path": "corpus/notices/00_document-precedence-and-glossary.txt",
+          "section": "§2 out of scope",
+          "role": "supporting"
+        },
+        {
+          "path": "corpus/data/fee-and-rate-schedule.csv",
+          "section": "rows ADV-001 to ADV-003",
+          "role": "supporting"
+        }
+      ],
+      "edge_case_handling": "Three questions in one: two out of scope (comparison, recommendation) and one partly in scope (APR — answer: there isn't one). Do not calculate an 'equivalent APR' — the effective cost depends on how quickly it is repaid and the policy forbids comparison.",
+      "failure_modes": [
+        "Quoting or calculating an APR",
+        "Saying BridgeAdvance is cheaper or more expensive than a loan",
+        "Recommending the merchant take (or avoid) an advance",
+        "Describing it as a loan or saying interest is charged"
+      ]
+    },
+    {
+      "id": "MB-Q09",
+      "query": "If I get a £20,000 BridgeAdvance at a factor rate of 1.12 with a 15% holdback, and I take about £1,200 a day on card, how much comes out each day and how long until it's paid off?",
+      "categories": [
+        "calculation",
+        "single_doc"
+      ],
+      "difficulty": "medium",
+      "requires_clarification": false,
+      "ideal_behaviour": "Work through total repayable, fee, daily deduction and approximate number of days; note the assumptions and that the actual rate and holdback are set in the offer.",
+      "expected_answer": "Using your figures: the total repayable is £20,000 × 1.12 = £22,400, so the fixed fee is £2,400. With a 15% holdback on £1,200 of card sales a day, £180 a day goes towards the advance. £22,400 ÷ £180 = 124.4, so it would take about 125 days of card sales at that level — 124 full days of £180 and a final £80. If your sales are higher, you repay faster; if they're lower, more slowly, but the total stays £22,400 either way. You can settle early by bank transfer, but there's no discount on the fee. Bear in mind these are illustrative: the factor rate (1.08–1.25), holdback (10–20%) and amount are set in your offer, and the advance can't exceed your average monthly card turnover with us over the last 3 months.",
+      "key_facts": [
+        "Total repayable £22,400; fee £2,400",
+        "Daily repayment £180 (15% × £1,200)",
+        "≈ 124.4 → ~125 days of card sales",
+        "Repayment speed varies with sales; total fixed",
+        "No early-settlement discount",
+        "Factor rate and holdback set by MerchantBridge in the offer"
+      ],
+      "calculation": {
+        "total_repayable_gbp": "22400.00",
+        "fee_gbp": "2400.00",
+        "daily_gbp": "180.00",
+        "days": "124.44 → 125"
+      },
+      "source_documents": [
+        {
+          "path": "corpus/policies/15_bridgeadvance-merchant-cash-advance-policy.md",
+          "section": "§3, §4, §5",
+          "role": "primary"
+        },
+        {
+          "path": "corpus/data/fee-and-rate-schedule.csv",
+          "section": "rows ADV-001 to ADV-003",
+          "role": "supporting"
+        }
+      ],
+      "edge_case_handling": "Hypothetical figures are within the published ranges, so the bot should calculate rather than refuse. It must not promise an offer at those terms. 'Days' means days of card settlements, not necessarily calendar days.",
+      "failure_modes": [
+        "Treating 1.12 as 12% annual interest",
+        "Calculating days on £20,000 instead of £22,400 (→ ~111)",
+        "Promising the merchant will be offered these terms",
+        "Saying early repayment reduces the fee"
+      ]
+    },
+    {
+      "id": "MB-Q10",
+      "query": "I'm on Growth. When will I get paid for what I take on Christmas Eve and on Boxing Day?",
+      "categories": [
+        "multi_doc",
+        "temporal_reasoning",
+        "table_lookup"
+      ],
+      "difficulty": "hard",
+      "requires_clarification": false,
+      "ideal_behaviour": "Use the 2026/27 holiday payout calendar (or derive it from the settlement rules) and note the 22:00 cut-off and the Instant Payouts option.",
+      "expected_answer": "For Growth: card sales taken on Christmas Eve (Thursday 24 December 2026) before 22:00 are processed that day, but Friday 25th is a bank holiday, then the weekend, and Monday 28th is the substitute Boxing Day bank holiday — so they'll be paid on Tuesday 29 December. Sales on Boxing Day itself (Saturday 26 December) are processed on Tuesday 29 December and paid on Wednesday 30 December. Anything taken on Christmas Eve after 22:00 is also paid on Wednesday 30 December. If you need funds sooner, Instant Payouts work 24/7 over the holidays (1% fee, minimum £0.50). Our phone lines are closed on 25–28 December, but the 24/7 Fraud & Emergency Line stays open.",
+      "key_facts": [
+        "Bank holidays: Fri 25 Dec, Mon 28 Dec (substitute Boxing Day), Fri 1 Jan",
+        "Christmas Eve (before 22:00) → processing Thu 24 Dec → paid Tue 29 Dec",
+        "Boxing Day (Sat 26 Dec) → processing Tue 29 Dec → paid Wed 30 Dec",
+        "Christmas Eve after 22:00 → paid Wed 30 Dec",
+        "Instant Payouts available 24/7 (Growth 1.0%, min £0.50)"
+      ],
+      "source_documents": [
+        {
+          "path": "corpus/notices/03_service-notice-2026-11_christmas-new-year-payout-calendar.txt",
+          "section": "Payout calendar",
+          "role": "primary"
+        },
+        {
+          "path": "corpus/policies/03_settlement-and-payouts-policy.md",
+          "section": "§2–3 definitions and schedule",
+          "role": "supporting"
+        },
+        {
+          "path": "corpus/policies/03_settlement-and-payouts-policy.md",
+          "section": "§8 Instant Payouts",
+          "role": "supporting"
+        }
+      ],
+      "edge_case_handling": "Boxing Day falls on a Saturday, so the bank holiday is the following Monday — a naive model may treat 26 Dec as the bank holiday and get Tuesday 29 Dec for Boxing Day sales. A model reasoning only from the policy must correctly identify the substitute holiday.",
+      "failure_modes": [
+        "Saying Christmas Eve sales are paid on Friday 25 or Monday 28 December",
+        "Saying Boxing Day sales are paid on Tuesday 29 December",
+        "Applying the Starter T+2 schedule",
+        "Ignoring the 22:00 cut-off nuance"
+      ]
+    },
+    {
+      "id": "MB-Q11",
+      "query": "Can I charge customers extra for paying by card? Like 2% on top?",
+      "categories": [
+        "ambiguous_phrasing",
+        "regulatory",
+        "legal_boundary"
+      ],
+      "difficulty": "medium",
+      "requires_clarification": false,
+      "ideal_behaviour": "Distinguish consumer cards (surcharge prohibited) from commercial cards (allowed up to cost), mention discounts as the permitted alternative, and avoid giving legal advice.",
+      "expected_answer": "Not for most customers. UK law doesn't allow you to add a surcharge when someone pays with a personal (consumer) debit or credit card, so a flat 2% on top for everyone isn't allowed. You can add a surcharge for business (commercial) cards, but it mustn't be more than what it costs you to accept that card. On Growth, for example, an in-person UK commercial card costs 2.29%, so 2% would be within that. What you can do is offer a discount for paying by another method, as long as you apply it clearly and consistently. We can't give legal advice, so if you're unsure how this applies to your business, please take your own advice.",
+      "key_facts": [
+        "Surcharging consumer cards is prohibited in the UK",
+        "Commercial-card surcharges allowed up to the cost of acceptance",
+        "Discounts for other payment methods are allowed",
+        "MerchantBridge cannot give legal advice"
+      ],
+      "source_documents": [
+        {
+          "path": "corpus/policies/02_pricing-plans-and-billing-policy.md",
+          "section": "§11 Surcharging and discounts",
+          "role": "primary"
+        },
+        {
+          "path": "corpus/faqs/faq-fees-and-billing.html",
+          "section": "#surcharge",
+          "role": "supporting"
+        },
+        {
+          "path": "corpus/data/fee-and-rate-schedule.csv",
+          "section": "rows TXN-013 to TXN-018 (commercial card costs)",
+          "role": "supporting"
+        }
+      ],
+      "edge_case_handling": "'Customers' is ambiguous between consumers and businesses. The answer must split the two rather than give a blanket yes or no. The plan isn't stated, so any commercial-card cost example should name the plan used.",
+      "failure_modes": [
+        "Saying yes, a 2% surcharge is fine for everyone",
+        "Saying surcharges are never allowed (ignores commercial cards)",
+        "Presenting the answer as legal advice"
+      ]
+    },
+    {
+      "id": "MB-Q12",
+      "query": "Someone nicked my BridgePay Go from the restaurant last night. What do I do and how much is this going to cost me?",
+      "categories": [
+        "table_lookup",
+        "multi_doc",
+        "urgent_action"
+      ],
+      "difficulty": "easy",
+      "requires_clarification": false,
+      "ideal_behaviour": "Lead with the urgent action (24/7 line to block the terminal), then the replacement cost including VAT and the effect on the rental.",
+      "expected_answer": "First, call our 24/7 Fraud & Emergency Line on 020 7946 0999 now (or report it in your dashboard) so we can deactivate the terminal and stop it being used — for example, to process refunds. A replacement BridgePay Go costs £120 + VAT, so £144 in total. Your rental carries on at £15 + VAT a month on the replacement under your existing agreement; the 12-month minimum term doesn't restart. We'd recommend reporting the theft to the police, but you don't need a crime reference number to get a replacement. It's also worth checking your dashboard for any refunds you don't recognise.",
+      "key_facts": [
+        "Report via 24/7 line 020 7946 0999 — terminal deactivated remotely",
+        "Go replacement £120 + VAT = £144 (HW-005)",
+        "Rental continues; minimum term does not restart",
+        "Police report recommended, crime reference not required"
+      ],
+      "calculation": {
+        "formula": "120 × 1.2",
+        "result_gbp": "144.00"
+      },
+      "source_documents": [
+        {
+          "path": "corpus/policies/06_payment-terminal-hardware-policy.md",
+          "section": "§6 Lost, stolen or damaged terminals",
+          "role": "primary"
+        },
+        {
+          "path": "corpus/data/fee-and-rate-schedule.csv",
+          "section": "row HW-005",
+          "role": "primary"
+        },
+        {
+          "path": "corpus/faqs/faq-terminals-and-hardware.html",
+          "section": "#lost-stolen",
+          "role": "supporting"
+        },
+        {
+          "path": "corpus/policies/09_fraud-prevention-and-account-security-policy.md",
+          "section": "§3",
+          "role": "supporting"
+        }
+      ],
+      "edge_case_handling": "Colloquial British phrasing ('nicked'). The urgent step must come first. Don't confuse with the unreturned-terminal fee (£150 + VAT) or the warranty (theft isn't covered).",
+      "failure_modes": [
+        "Quoting £150 (unreturned fee) or £95 (Counter)",
+        "Saying the replacement is free under warranty",
+        "Saying the rental term restarts",
+        "Giving the main support line instead of the 24/7 line"
+      ]
+    },
+    {
+      "id": "MB-Q13",
+      "query": "I'm on Scale — it started on 1 March 2026 — and I rent two BridgePay Counters that were delivered on 1 April 2026. If I cancel everything today, what will it cost me to leave?",
+      "categories": [
+        "multi_doc",
+        "calculation",
+        "temporal_reasoning",
+        "hidden_exception"
+      ],
+      "difficulty": "very_hard",
+      "requires_clarification": false,
+      "reference_date": "2026-11-11",
+      "ideal_behaviour": "Calculate the standard early termination fees correctly, then point out that the chargeback fee increase notice gives the merchant the right to leave free of charge (ETFs waived) if they cancel before 1 January 2027 citing that notice. Cover terminal returns and the closing reserve.",
+      "expected_answer": "Normally, cancelling today (11 November 2026) would take effect at the end of this billing month, on 30 November 2026. Scale plan: your initial term runs from March 2026 to February 2027, leaving 3 full months (December, January, February). The early termination fee would be 3 × £79 × 50% = £118.50 + VAT = £142.20. Terminals: each Counter's 12-month term runs from April 2026 to March 2027, leaving 4 months (December to March), so 4 × £12 × 50% = £24 per terminal, £48 for both, + VAT = £57.60. That's £166.50 + £33.30 VAT = £199.80 in total. However, we've given notice that the chargeback fee is rising from £15 to £20 on 1 January 2027. Because of that price increase, you can close your account free of charge — with no early termination fees for the Scale plan or the terminal rentals — as long as you do it before 1 January 2027 and mention that notice when you cancel. Either way: November's plan fee and rental, already billed, aren't refunded; you'll need to return both Counters within 30 days using the prepaid label, or you'll be charged £120 + VAT (£144) each; we may hold part of your balance for up to 120 days as a closing reserve; and any outstanding BridgeAdvance balance would become due.",
+      "key_facts": [
+        "Termination effective end of billing month: 30 Nov 2026",
+        "Scale ETF: 3 remaining months × £79 × 50% = £118.50 + VAT £23.70 = £142.20",
+        "Terminal ETF: 4 remaining months × £12 × 50% × 2 = £48 + VAT £9.60 = £57.60",
+        "Standard total £166.50 + £33.30 VAT = £199.80",
+        "ETFs waived if terminating before 1 Jan 2027 in response to chargeback fee increase (NTC-02; POL-12 §3; POL-02 §10)",
+        "Return terminals within 30 days or £120 + VAT each",
+        "Closing reserve up to 120 days; BridgeAdvance balance due"
+      ],
+      "calculation": {
+        "scale_etf_ex_vat": "118.50",
+        "terminal_etf_ex_vat": "48.00",
+        "vat": "33.30",
+        "total_inc_vat": "199.80",
+        "with_price_change_exemption": "0.00"
+      },
+      "source_documents": [
+        {
+          "path": "corpus/policies/12_contract-term-cancellation-and-account-closure-policy.md",
+          "section": "§1, §3, §4",
+          "role": "primary"
+        },
+        {
+          "path": "corpus/policies/06_payment-terminal-hardware-policy.md",
+          "section": "§3 Rental terms; §4 Returning rented terminals",
+          "role": "supporting"
+        },
+        {
+          "path": "corpus/notices/02_service-notice-2026-10_chargeback-fee-change.txt",
+          "section": "Your rights",
+          "role": "primary"
+        },
+        {
+          "path": "corpus/policies/02_pricing-plans-and-billing-policy.md",
+          "section": "§6 VAT; §10 Price changes",
+          "role": "supporting"
+        },
+        {
+          "path": "corpus/data/fee-and-rate-schedule.csv",
+          "section": "rows PLN-003, HW-003, HW-008, CTR-001, CTR-002",
+          "role": "supporting"
+        },
+        {
+          "path": "corpus/policies/11_rolling-reserves-and-risk-holds-policy.md",
+          "section": "§6 Closing reserve",
+          "role": "supporting"
+        }
+      ],
+      "edge_case_handling": "Requires: (1) end-of-billing-month termination rule; (2) separate terms for plan and terminals; (3) VAT on ETFs; (4) linking an apparently unrelated fee notice to a termination right. The policy's own worked example uses a 1 June start date — the bot must not copy its figures (£237 / £284.40). If the eval reference date is on or after 2027-01-01, the exemption no longer applies.",
+      "failure_modes": [
+        "Copying the policy's worked example figures",
+        "Counting remaining months from 11 Nov rather than from 30 Nov",
+        "Using the Scale start date for the terminal terms",
+        "Omitting VAT on ETFs",
+        "Missing the free-exit right created by MBFS-NTC-02",
+        "Saying cancelling the plan doesn't affect the terminal rentals (closing the account gives notice on them)"
+      ]
+    },
+    {
+      "id": "MB-Q14",
+      "query": "Can you open a business current account for me so my takings go straight in, and set me up with a £10k overdraft?",
+      "categories": [
+        "out_of_scope",
+        "product_not_offered"
+      ],
+      "difficulty": "easy",
+      "requires_clarification": false,
+      "ideal_behaviour": "Say clearly that MerchantBridge doesn't offer current accounts or overdrafts, explain how payouts work with the merchant's own bank, and mention BridgeAdvance only as information, with eligibility.",
+      "expected_answer": "I'm afraid we can't. MerchantBridge is a payment institution, not a bank, so we don't offer business current accounts, overdrafts or loans. Your card takings are paid out to your own UK business bank account — the next business day on Growth and Scale, or after two business days on Starter. You'll need to speak to a bank about a current account or overdraft. The only funding we offer is BridgeAdvance, a merchant cash advance repaid from your card sales. It isn't an overdraft, and it's only available to Growth and Scale merchants who've traded for at least 12 months, processed with us for at least 3 months and take at least £5,000 a month on card. Eligible merchants see an offer in their dashboard.",
+      "key_facts": [
+        "MerchantBridge is not a bank; no current accounts, overdrafts or loans",
+        "Payouts go to the merchant's own UK bank account",
+        "BridgeAdvance is the only funding product, with eligibility criteria"
+      ],
+      "source_documents": [
+        {
+          "path": "corpus/faqs/faq-getting-started.html",
+          "section": "#is-merchantbridge-a-bank",
+          "role": "primary"
+        },
+        {
+          "path": "corpus/notices/00_document-precedence-and-glossary.txt",
+          "section": "§2 out of scope",
+          "role": "supporting"
+        },
+        {
+          "path": "corpus/policies/15_bridgeadvance-merchant-cash-advance-policy.md",
+          "section": "§1–2",
+          "role": "supporting"
+        }
+      ],
+      "edge_case_handling": "Plausible-sounding request for a product that a payments company might offer. The bot must not invent account features. Mentioning BridgeAdvance is fine but must not be pitched as an overdraft. Recommending specific banks is out of scope.",
+      "failure_modes": [
+        "Implying MerchantBridge can open an account or offer an overdraft",
+        "Describing BridgeAdvance as an overdraft or loan",
+        "Recommending a specific bank"
+      ]
+    },
+    {
+      "id": "MB-Q15",
+      "query": "I'm a sole trader living in Dublin but nearly all my customers are in Northern Ireland. Can I sign up with you?",
+      "categories": [
+        "eligibility",
+        "policy_boundary"
+      ],
+      "difficulty": "easy",
+      "requires_clarification": false,
+      "ideal_behaviour": "Clear no, with the reason (UK residency and UK bank account required; no exceptions), without suggesting workarounds.",
+      "expected_answer": "Unfortunately not. To open an account as a sole trader, you need to be resident in the UK and have a UK bank account that can receive sterling payouts. We can't accept businesses or sole traders based in the Republic of Ireland, even if most of their customers are in the UK. We don't make exceptions to this. If you set up a UK-registered business with a UK bank account in future, you'd be welcome to apply.",
+      "key_facts": [
+        "Sole traders must be UK resident",
+        "UK sterling bank account required",
+        "Republic of Ireland explicitly excluded",
+        "Customer location irrelevant; no exceptions"
+      ],
+      "source_documents": [
+        {
+          "path": "corpus/policies/01_account-opening-and-verification-policy.md",
+          "section": "§2, §3",
+          "role": "primary"
+        },
+        {
+          "path": "corpus/faqs/faq-getting-started.html",
+          "section": "#who-can-sign-up",
+          "role": "supporting"
+        }
+      ],
+      "edge_case_handling": "Northern Ireland is part of the UK, which may confuse a model into saying yes. The future-business suggestion must not become advice to use someone else's UK address or account.",
+      "failure_modes": [
+        "Saying yes because customers are in Northern Ireland (UK)",
+        "Suggesting an exception may be possible",
+        "Suggesting the use of a UK address or bank account that isn't genuinely theirs"
+      ]
+    },
+    {
+      "id": "MB-Q16",
+      "query": "Someone from your fraud team is on the other line saying there's a problem with my payout and they need me to read out the 6-digit code you've just texted me. Shall I give it to them? They say it's urgent.",
+      "categories": [
+        "security",
+        "social_engineering",
+        "urgent_action"
+      ],
+      "difficulty": "easy",
+      "requires_clarification": false,
+      "ideal_behaviour": "Immediate, unambiguous 'no' at the top; tell them to hang up and call the official 24/7 number; give follow-up steps.",
+      "expected_answer": "No — don't give them the code. Please hang up now. MerchantBridge will never ask you to read out a two-factor or one-time code, and pressure to act urgently is a common sign of a scam. Then call our 24/7 Fraud & Emergency Line yourself on 020 7946 0999 (don't use any number the caller gave you). We can check your account and, if needed, freeze payouts, refunds and bank detail changes straight away. Afterwards, change your dashboard password from a device you trust, and check your bank details, recent refunds, team members and API keys for anything you don't recognise. If you've already shared the code, call the 24/7 line immediately.",
+      "key_facts": [
+        "Never share 2FA codes; MerchantBridge never asks for them",
+        "Hang up; call 24/7 line 020 7946 0999 yourself",
+        "Freeze payouts/refunds/bank changes available",
+        "Change password; review bank details, refunds, users, API keys"
+      ],
+      "source_documents": [
+        {
+          "path": "corpus/policies/09_fraud-prevention-and-account-security-policy.md",
+          "section": "§1, §3",
+          "role": "primary"
+        },
+        {
+          "path": "corpus/faqs/faq-disputes-security-and-account.html",
+          "section": "#suspicious-call",
+          "role": "supporting"
+        }
+      ],
+      "edge_case_handling": "Time-critical. The 'no' must come first, not after background. The bot must not hedge ('it could be genuine') or offer to verify the caller.",
+      "failure_modes": [
+        "Hedging or suggesting it might be genuine",
+        "Burying the instruction below background information",
+        "Giving the main support line, which may be closed, instead of the 24/7 line"
+      ]
+    },
+    {
+      "id": "MB-Q17",
+      "query": "I sell CBD oils and vapes online. Can I use MerchantBridge?",
+      "categories": [
+        "eligibility",
+        "ambiguous_phrasing",
+        "restricted_business"
+      ],
+      "difficulty": "hard",
+      "requires_clarification": false,
+      "ideal_behaviour": "Explain that both are restricted (not prohibited) with conditions, flag that CBD vape products and disposable vapes are not allowed, and say approval isn't guaranteed.",
+      "expected_answer": "Possibly, but both are restricted categories, so you'd need extra checks and approval isn't guaranteed. For CBD oils: we need an independent certificate of analysis for each product line showing no more than 1 mg of THC per container; ingestible products must be on the Food Standards Agency's public list; and you can't make medical claims. We can't support smokable or vapeable CBD products, so if your vapes are CBD vapes, we can't accept them. For nicotine vapes and e-cigarettes, you'd need robust age verification at checkout and compliance with UK product notification rules, and we don't support disposable vapes. Because these are restricted, verification can take up to 10 business days and we may apply a reserve to your account. You're welcome to apply and our risk team will review your products.",
+      "key_facts": [
+        "CBD and vapes are restricted, not prohibited",
+        "CBD: certificate of analysis, ≤1 mg THC per container, FSA list, no medical claims",
+        "No smokable/vapeable CBD",
+        "Vapes: age verification, UK notification compliance, no disposables",
+        "Approval discretionary; up to 10 business days; reserve possible"
+      ],
+      "source_documents": [
+        {
+          "path": "corpus/policies/10_prohibited-and-restricted-businesses-policy.md",
+          "section": "§3 Restricted businesses; §5 How support agents should respond",
+          "role": "primary"
+        },
+        {
+          "path": "corpus/policies/01_account-opening-and-verification-policy.md",
+          "section": "§5 timescales",
+          "role": "supporting"
+        },
+        {
+          "path": "corpus/policies/11_rolling-reserves-and-risk-holds-policy.md",
+          "section": "§3",
+          "role": "supporting"
+        }
+      ],
+      "edge_case_handling": "'Vapes' is ambiguous (CBD vapes vs nicotine vapes) and the answer differs. Address both. Agents must not confirm approval.",
+      "failure_modes": [
+        "Saying yes without conditions",
+        "Saying CBD is prohibited",
+        "Missing that CBD vapes are not allowed",
+        "Promising approval"
+      ]
+    },
+    {
+      "id": "MB-Q18",
+      "query": "I closed my account last month. Under GDPR I want you to delete everything you hold about me today.",
+      "categories": [
+        "data_protection",
+        "partial_fulfilment",
+        "routing"
+      ],
+      "difficulty": "medium",
+      "requires_clarification": false,
+      "ideal_behaviour": "Acknowledge the right, explain the legal-retention limits with specific periods, explain the process and timescale, and route to the DPO rather than claiming to delete data.",
+      "expected_answer": "You have a right to ask us to erase your data, and I'll pass your request to our data protection team today. I should be upfront that we can't delete everything immediately. The law requires us to keep some records even after an account closes: identity and verification records for 5 years after our relationship ends (under anti-money-laundering rules), and transaction records for 6 years after the end of the financial year they relate to. Call recordings and chat transcripts are normally kept for 2 years. We'll delete or anonymise anything we don't need to keep, such as marketing data, and explain exactly what we're keeping and why. We'll respond within one month (extendable by up to two more months for complex requests, in which case we'll tell you), and we may need to verify your identity first. You can also email dpo@merchantbridge.example directly. If you're unhappy with how we handle it, you can complain to the Information Commissioner's Office.",
+      "key_facts": [
+        "Right to erasure is limited by legal obligations",
+        "KYB records 5 years after relationship ends; transactions 6 years after FY end; recordings 2 years",
+        "Data not needed (e.g. marketing) deleted/anonymised",
+        "Response within one month (+2 months for complex requests); ID verification",
+        "Agents can't action; pass to DPO the same business day; dpo@merchantbridge.example",
+        "Right to complain to the ICO"
+      ],
+      "source_documents": [
+        {
+          "path": "corpus/policies/14_data-protection-and-privacy-policy.md",
+          "section": "§5, §6, §7, §9",
+          "role": "primary"
+        },
+        {
+          "path": "corpus/faqs/faq-disputes-security-and-account.html",
+          "section": "#delete-data",
+          "role": "supporting"
+        }
+      ],
+      "edge_case_handling": "The user demands immediate full deletion, which isn't possible. The bot must not promise it, must not dismiss the right, and must not claim to have deleted anything itself.",
+      "failure_modes": [
+        "Promising full deletion today",
+        "Claiming the bot has deleted the data",
+        "Refusing without explaining retention periods",
+        "Wrong timescale (e.g. 30 business days)"
+      ]
+    },
+    {
+      "id": "MB-Q19",
+      "query": "I'm on Growth and want my payouts in euros. If the mid-market rate is £1 = €1.16, how many euros would I get for £1,000?",
+      "categories": [
+        "table_lookup",
+        "calculation",
+        "eligibility"
+      ],
+      "difficulty": "medium",
+      "requires_clarification": false,
+      "ideal_behaviour": "Apply the published conversion formula with the Growth markup, show working, and state the EUR account requirement.",
+      "expected_answer": "On Growth we convert at the mid-market rate less a 1.25% markup. So £1,000 × 1.16 × (1 − 0.0125) = €1,145.50 (before any transaction fees, which are calculated separately). For comparison, on Scale (0.90% markup) it would be €1,149.56. To be paid in euros you'll need a euro bank account in your business's name, held in the UK or EEA, and you can choose which presentment currencies settle into euros. The rate used is the one at batch close (22:00 UK time) on the processing day, and it's shown in your dashboard. Instant Payouts are available in GBP only.",
+      "key_facts": [
+        "Converted = amount × mid-market × (1 − markup)",
+        "Growth markup 1.25% (FX-002) → €1,145.50",
+        "Scale 0.90% → €1,149.56 (optional comparison)",
+        "EUR account in business name in UK or EEA required",
+        "Rate fixed at batch close; Instant Payouts GBP only"
+      ],
+      "calculation": {
+        "formula": "1000 × 1.16 × (1 − 0.0125)",
+        "result_eur": "1145.50",
+        "scale_comparison_eur": "1149.56"
+      },
+      "source_documents": [
+        {
+          "path": "corpus/policies/08_multi-currency-and-fx-policy.md",
+          "section": "§3, §4",
+          "role": "primary"
+        },
+        {
+          "path": "corpus/data/fee-and-rate-schedule.csv",
+          "section": "rows FX-002, FX-003",
+          "role": "primary"
+        },
+        {
+          "path": "corpus/faqs/faq-payments-and-payouts.html",
+          "section": "#other-currencies",
+          "role": "supporting"
+        }
+      ],
+      "edge_case_handling": "Markup must reduce the amount received (applied in MerchantBridge's favour). The bot should not use the worked example in the policy (USD→GBP) by mistake, nor apply the markup as a separate fee in GBP.",
+      "failure_modes": [
+        "Adding the markup (→ €1,174.50)",
+        "Ignoring the markup (→ €1,160.00)",
+        "Using the Scale markup",
+        "Saying Growth can't settle in EUR"
+      ]
+    },
+    {
+      "id": "MB-Q20",
+      "query": "My terminal has been declining every single card since this morning — is this your fault, and are you going to compensate me for all the sales I've lost?",
+      "categories": [
+        "multi_doc",
+        "troubleshooting",
+        "complaint",
+        "liability_boundary"
+      ],
+      "difficulty": "hard",
+      "requires_clarification": false,
+      "ideal_behaviour": "Empathise, help fix the problem first (troubleshooting steps including account-level causes and the status page), then answer the compensation question honestly with the liability position and the complaint route.",
+      "expected_answer": "I'm sorry — that's really frustrating, especially when you're trying to trade. When every card is declined, it's usually the connection or something on the account rather than your customers' cards. Please try: (1) check the terminal's connection (4G/Wi-Fi/Ethernet, or Bluetooth and the app for a Mini); (2) restart it by holding the power button for 10 seconds; (3) leave it connected and charging so it can install any missed updates — a terminal that has missed updates for over 30 days can stop taking payments; (4) check your dashboard for any message about your account, such as a verification request, the £2,000 pre-verification limit, or a restriction; (5) check status.merchantbridge.example for any service incident. If none of that works, call 020 7946 0800 — if it's a hardware fault, we'll send a free replacement on next-day delivery. If your terminal has offline mode (Go or Counter), it can take up to 50 payments of up to £100 each while disconnected, but you bear the risk if a card is declined when they're uploaded. On compensation: our terms don't cover indirect losses such as lost sales or profits, except where the law requires it. But if the problem was caused by an error on our side, we'll put things right, and you can raise a complaint. We'll acknowledge it within 2 business days and send a final response within 15 business days, and each case is looked at individually.",
+      "key_facts": [
+        "Troubleshooting: connection, restart, updates, dashboard account messages, status page, call support",
+        "Account-level causes: verification, £2,000 pre-verification cap, restriction",
+        "Free replacement for faults (next business day)",
+        "Offline mode option and its risk (Go/Counter)",
+        "No liability for indirect/consequential losses (lost sales) except where law requires",
+        "Complaint route: acknowledge 2 business days, final response 15 business days"
+      ],
+      "source_documents": [
+        {
+          "path": "corpus/faqs/faq-terminals-and-hardware.html",
+          "section": "#declined, #offline",
+          "role": "primary"
+        },
+        {
+          "path": "corpus/policies/06_payment-terminal-hardware-policy.md",
+          "section": "§5, §7, §9",
+          "role": "supporting"
+        },
+        {
+          "path": "corpus/policies/13_complaints-handling-policy.md",
+          "section": "§3, §4",
+          "role": "primary"
+        },
+        {
+          "path": "corpus/faqs/faq-disputes-security-and-account.html",
+          "section": "#compensation",
+          "role": "supporting"
+        },
+        {
+          "path": "corpus/policies/07_online-payments-and-api-policy.md",
+          "section": "§7 status page",
+          "role": "supporting"
+        },
+        {
+          "path": "corpus/policies/01_account-opening-and-verification-policy.md",
+          "section": "§6 £2,000 limit",
+          "role": "supporting"
+        }
+      ],
+      "edge_case_handling": "Frustrated tone and two intents. The bot must not admit fault without evidence, must not promise compensation for lost sales, and must not flatly deny any responsibility either. Fixing the problem comes before the liability discussion. Recording it as a complaint is appropriate because the user is unhappy.",
+      "failure_modes": [
+        "Promising compensation for lost sales",
+        "Admitting MerchantBridge is at fault without evidence",
+        "Blaming customers' cards when every card is declining",
+        "Skipping troubleshooting and only discussing liability",
+        "Dismissive tone or no complaint route"
+      ]
+    }
+  ]
+}

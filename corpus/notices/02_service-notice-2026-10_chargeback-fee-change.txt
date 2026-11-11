@@ -1,0 +1,61 @@
+MERCHANTBRIDGE FINANCIAL SERVICES LTD
+SERVICE NOTICE - CHANGE TO FEES
+Document ID: MBFS-NTC-02
+Title: Chargeback fee increasing from GBP 15 to GBP 20
+Published: 2026-10-15
+Effective date: 2027-01-01
+Applies to: All plans (Starter, Growth, Scale). Enterprise customers will be
+            contacted separately in line with their contracts.
+Supersedes: MBFS-POL-04 section 5 (chargeback fee amount only), from the
+            effective date.
+
+[Synthetic document. MerchantBridge Financial Services Ltd is a fictional company
+created for testing and training purposes. All names, figures, phone numbers,
+reference numbers and addresses are invented.]
+
+----------------------------------------------------------------------
+WHAT IS CHANGING
+----------------------------------------------------------------------
+
+The fee we charge for each chargeback will increase:
+
+  Up to and including 31 December 2026 ..... GBP 15 per chargeback
+  From 1 January 2027 ...................... GBP 20 per chargeback
+
+The fee that applies is determined by the date we NOTIFY you of the
+chargeback, not the date of the original transaction. A chargeback notified
+on 31 December 2026 is charged GBP 15; a chargeback notified on 2 January
+2027 is charged GBP 20, even if the original payment was made in 2026.
+
+----------------------------------------------------------------------
+WHAT IS NOT CHANGING
+----------------------------------------------------------------------
+
+  - On Growth and Scale, the chargeback fee is still refunded if the dispute
+    is decided in your favour. On Starter, it remains non-refundable.
+  - The pre-arbitration / arbitration fee stays at GBP 250 (non-refundable).
+  - Retrieval request fees stay at GBP 5 (Starter and Growth) and GBP 0 (Scale).
+  - Your 7-calendar-day deadline to respond to a chargeback is unchanged.
+
+----------------------------------------------------------------------
+WHY
+----------------------------------------------------------------------
+
+Card schemes have increased the fees they charge us for handling disputes,
+and our dispute-handling costs have risen. We have not increased this fee
+since 2023.
+
+----------------------------------------------------------------------
+YOUR RIGHTS
+----------------------------------------------------------------------
+
+We are giving you more than two months' notice of this increase. If you do
+not wish to accept it, you may close your account free of charge -
+including any early termination fee for the Scale plan or for terminal
+rentals - at any time before 1 January 2027. To do so, contact support or
+use Settings > Account > Close account and mention this notice.
+
+If we do not hear from you, we will treat you as having accepted the change.
+
+The Fee and Rate Schedule has been updated (rows DSP-001 to DSP-004).
+Our Fees and Billing FAQ and Disputes FAQ will be updated on the effective date.

@@ -1,0 +1,65 @@
+fee_id,category,item,plan,channel,card_type,card_region,percentage_rate,fixed_fee_gbp,minimum_fee_gbp,maximum_fee_gbp,billing_unit,vat_treatment,effective_from,effective_to,notes
+TXN-001,card_processing,Consumer debit - in person,Starter,in_person,consumer_debit,UK_EEA,1.69,0.00,,,per_transaction,exempt,2026-06-01,,Visa/Mastercard/Maestro debit issued in UK or EEA
+TXN-002,card_processing,Consumer debit - in person,Growth,in_person,consumer_debit,UK_EEA,1.39,0.00,,,per_transaction,exempt,2026-06-01,,
+TXN-003,card_processing,Consumer debit - in person,Scale,in_person,consumer_debit,UK_EEA,1.19,0.00,,,per_transaction,exempt,2026-06-01,,
+TXN-004,card_processing,Consumer debit - online,Starter,online,consumer_debit,UK_EEA,1.89,0.20,,,per_transaction,exempt,2026-06-01,,Online = hosted checkout / payment links / invoices / API / plugins
+TXN-005,card_processing,Consumer debit - online,Growth,online,consumer_debit,UK_EEA,1.59,0.20,,,per_transaction,exempt,2026-06-01,,
+TXN-006,card_processing,Consumer debit - online,Scale,online,consumer_debit,UK_EEA,1.39,0.15,,,per_transaction,exempt,2026-06-01,,
+TXN-007,card_processing,Consumer credit - in person,Starter,in_person,consumer_credit,UK_EEA,1.99,0.00,,,per_transaction,exempt,2026-06-01,,Includes consumer charge and prepaid cards
+TXN-008,card_processing,Consumer credit - in person,Growth,in_person,consumer_credit,UK_EEA,1.69,0.00,,,per_transaction,exempt,2026-06-01,,
+TXN-009,card_processing,Consumer credit - in person,Scale,in_person,consumer_credit,UK_EEA,1.49,0.00,,,per_transaction,exempt,2026-06-01,,
+TXN-010,card_processing,Consumer credit - online,Starter,online,consumer_credit,UK_EEA,2.19,0.20,,,per_transaction,exempt,2026-06-01,,
+TXN-011,card_processing,Consumer credit - online,Growth,online,consumer_credit,UK_EEA,1.89,0.20,,,per_transaction,exempt,2026-06-01,,
+TXN-012,card_processing,Consumer credit - online,Scale,online,consumer_credit,UK_EEA,1.69,0.15,,,per_transaction,exempt,2026-06-01,,
+TXN-013,card_processing,Commercial card - in person,Starter,in_person,commercial,UK_EEA,2.49,0.00,,,per_transaction,exempt,2026-06-01,,Business / corporate / purchasing cards
+TXN-014,card_processing,Commercial card - in person,Growth,in_person,commercial,UK_EEA,2.29,0.00,,,per_transaction,exempt,2026-06-01,,
+TXN-015,card_processing,Commercial card - in person,Scale,in_person,commercial,UK_EEA,2.09,0.00,,,per_transaction,exempt,2026-06-01,,
+TXN-016,card_processing,Commercial card - online,Starter,online,commercial,UK_EEA,2.69,0.20,,,per_transaction,exempt,2026-06-01,,
+TXN-017,card_processing,Commercial card - online,Growth,online,commercial,UK_EEA,2.49,0.20,,,per_transaction,exempt,2026-06-01,,
+TXN-018,card_processing,Commercial card - online,Scale,online,commercial,UK_EEA,2.29,0.15,,,per_transaction,exempt,2026-06-01,,
+TXN-019,card_processing,American Express - in person,All,in_person,amex,ALL,2.75,0.00,,,per_transaction,exempt,2026-06-01,,Flat rate on all plans; international surcharge does not apply
+TXN-020,card_processing,American Express - online,All,online,amex,ALL,2.95,0.20,,,per_transaction,exempt,2026-06-01,,Flat rate on all plans; international surcharge does not apply
+TXN-021,card_processing,International card surcharge,All,all,all_except_amex,NON_UK_EEA,1.50,0.00,,,per_transaction,exempt,2026-06-01,,Added to the applicable rate for cards issued outside the UK and EEA (based on issuing country not payment currency)
+TXN-022,card_processing,MOTO / virtual terminal uplift,"Growth, Scale",moto,all_except_amex,ALL,0.50,0.00,,,per_transaction,exempt,2026-06-01,,Added to the applicable online rate; Virtual Terminal not available on Starter
+TXN-023,card_processing,Enterprise processing rates,Enterprise,all,all,ALL,,,,,per_transaction,exempt,2026-06-01,,Bespoke - agreed with sales; not quotable by support
+PLN-001,plan_fee,Starter monthly plan fee,Starter,,,,,0.00,,,per_month,standard_20,2026-06-01,,No minimum term
+PLN-002,plan_fee,Growth monthly plan fee,Growth,,,,,29.00,,,per_month,standard_20,2026-06-01,,Rolling monthly; 30 days' notice
+PLN-003,plan_fee,Scale monthly plan fee,Scale,,,,,79.00,,,per_month,standard_20,2026-06-01,,12-month initial term
+PLN-004,plan_fee,Enterprise plan fee,Enterprise,,,,,,,,per_month,standard_20,2026-06-01,,Bespoke
+PLN-005,plan_fee,Minimum Monthly Service Charge (MMSC),Scale,,,,,150.00,,,per_month,exempt,2026-06-01,,Shortfall charged if monthly processing fees are below GBP 150
+STL-001,settlement,Standard payout,All,,,,,0.00,,,per_payout,exempt,2026-06-01,,Starter T+2; Growth and Scale T+1; minimum payout GBP 1
+STL-002,settlement,Instant Payout,"Growth, Scale",,,,1.00,,0.50,,per_payout,exempt,2026-06-01,,Max GBP 10000 per payout; max 5 per day; GBP only
+STL-003,settlement,Instant Payout,Starter,,,,1.50,,0.50,,per_payout,exempt,2026-09-01,,Introduced by Service Notice MBFS-NTC-01; max GBP 2500 per payout; max 3 per day; GBP only
+STL-004,settlement,Returned payout fee,All,,,,,5.00,,,per_event,exempt,2026-06-01,,Charged when a payout is returned by the receiving bank
+STL-005,settlement,First payout to new bank account - security delay,All,,,,,0.00,,,per_event,exempt,2026-06-01,,72-hour delay; no fee
+FX-001,fx,FX markup on currency conversion,Starter,,,,,,,,per_conversion,exempt,2026-06-01,,Not applicable - GBP settlement only
+FX-002,fx,FX markup on currency conversion,Growth,,,,1.25,,,,per_conversion,exempt,2026-06-01,,Converted = amount x mid-market x (1 - markup)
+FX-003,fx,FX markup on currency conversion,Scale,,,,0.90,,,,per_conversion,exempt,2026-06-01,,Converted = amount x mid-market x (1 - markup)
+DSP-001,disputes,Chargeback fee,Starter,,,,,15.00,,,per_chargeback,exempt,2026-06-01,2026-12-31,Non-refundable
+DSP-002,disputes,Chargeback fee,"Growth, Scale",,,,,15.00,,,per_chargeback,exempt,2026-06-01,2026-12-31,Refunded if dispute decided in merchant's favour
+DSP-003,disputes,Chargeback fee,Starter,,,,,20.00,,,per_chargeback,exempt,2027-01-01,,Non-refundable; change announced in Service Notice MBFS-NTC-02
+DSP-004,disputes,Chargeback fee,"Growth, Scale",,,,,20.00,,,per_chargeback,exempt,2027-01-01,,Refunded if dispute decided in merchant's favour; change announced in Service Notice MBFS-NTC-02
+DSP-005,disputes,Pre-arbitration / arbitration fee,All,,,,,250.00,,,per_case,exempt,2026-06-01,,Non-refundable on all plans
+DSP-006,disputes,Retrieval request (request for information),"Starter, Growth",,,,,5.00,,,per_request,exempt,2026-06-01,,
+DSP-007,disputes,Retrieval request (request for information),Scale,,,,,0.00,,,per_request,exempt,2026-06-01,,
+RFD-001,refunds,Refund fee,All,,,,,0.00,,,per_refund,exempt,2026-06-01,,Original transaction fee is not returned
+RFD-002,refunds,Void (before 22:00 batch cut-off),All,,,,,0.00,,,per_void,exempt,2026-06-01,,No transaction fee charged on voided payments
+HW-001,hardware,BridgePay Mini - purchase,All,,,,,59.00,,,one_off,standard_20,2026-06-01,,12-month warranty; returnable unused within 14 days
+HW-002,hardware,BridgePay Go - rental,All,,,,,15.00,,,per_month,standard_20,2026-06-01,,12-month minimum term per terminal
+HW-003,hardware,BridgePay Counter - rental,All,,,,,12.00,,,per_month,standard_20,2026-06-01,,12-month minimum term per terminal
+HW-004,hardware,Replacement - BridgePay Mini (lost/stolen/non-warranty damage),All,,,,,59.00,,,per_terminal,standard_20,2026-06-01,,
+HW-005,hardware,Replacement - BridgePay Go (lost/stolen/non-warranty damage),All,,,,,120.00,,,per_terminal,standard_20,2026-06-01,,Rental continues on replacement
+HW-006,hardware,Replacement - BridgePay Counter (lost/stolen/non-warranty damage),All,,,,,95.00,,,per_terminal,standard_20,2026-06-01,,Rental continues on replacement
+HW-007,hardware,Unreturned terminal fee - BridgePay Go,All,,,,,150.00,,,per_terminal,standard_20,2026-06-01,,If not returned within 30 days of rental ending
+HW-008,hardware,Unreturned terminal fee - BridgePay Counter,All,,,,,120.00,,,per_terminal,standard_20,2026-06-01,,If not returned within 30 days of rental ending
+HW-009,hardware,Standard delivery (3-5 business days),All,,,,,0.00,,,per_order,standard_20,2026-06-01,,
+HW-010,hardware,Next-business-day delivery,All,,,,,9.99,,,per_order,standard_20,2026-06-01,,Order before 15:00 UK time on a business day
+HW-011,hardware,Thermal paper rolls (pack of 20; 57mm x 40mm),All,,,,,12.00,,,per_pack,standard_20,2026-06-01,,20 free rolls with first Go/Counter order
+CTR-001,contract,Early termination fee - Scale plan,Scale,,,,50.00,,,,one_off,standard_20,2026-06-01,,50% of remaining monthly plan fees in initial 12-month term; percentage applies to remaining fees not transaction value
+CTR-002,contract,Early termination fee - terminal rental,All,,,,50.00,,,,one_off,standard_20,2026-06-01,,50% of remaining monthly rental in 12-month minimum term per terminal
+ADM-001,admin,Failed Direct Debit fee,All,,,,,10.00,,,per_event,exempt,2026-06-01,,
+ADM-002,admin,Paper statement,All,,,,,2.50,,,per_statement,standard_20,2026-06-01,,Digital statements free
+ADM-003,admin,PCI DSS non-compliance fee,All,,,,,35.00,,,per_month,exempt,2026-06-01,,Charged if PCI validation not completed within 90 days of activation or annually thereafter
+ADV-001,bridgeadvance,BridgeAdvance fixed fee (factor rate),"Growth, Scale",,,,,,,,per_advance,outside_scope,2026-06-01,,Factor rate 1.08-1.25 set per offer; fee = advance x (factor - 1); no interest or APR
+ADV-002,bridgeadvance,BridgeAdvance holdback percentage,"Growth, Scale",,,,,,,,per_day,outside_scope,2026-06-01,,10%-20% of daily card settlements; set per offer
+ADV-003,bridgeadvance,BridgeAdvance amount limits,"Growth, Scale",,,,,,2000.00,250000.00,per_advance,outside_scope,2026-06-01,,Max 100% of average monthly card turnover over last 3 months

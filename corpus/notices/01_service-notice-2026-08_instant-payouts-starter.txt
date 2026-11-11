@@ -1,0 +1,59 @@
+MERCHANTBRIDGE FINANCIAL SERVICES LTD
+SERVICE NOTICE
+Document ID: MBFS-NTC-01
+Title: Instant Payouts now available on the Starter plan
+Published: 2026-08-03
+Effective date: 2026-09-01
+Applies to: Starter plan merchants
+Supersedes: MBFS-POL-03 section 8 ("Availability: Growth and Scale plans only"),
+            from the effective date, for Starter merchants only.
+
+[Synthetic document. MerchantBridge Financial Services Ltd is a fictional company
+created for testing and training purposes. All names, figures, phone numbers,
+reference numbers and addresses are invented.]
+
+----------------------------------------------------------------------
+SUMMARY
+----------------------------------------------------------------------
+
+From 1 September 2026, merchants on the Starter plan can use Instant
+Payouts to send their available balance to their bank account at any time,
+instead of waiting for their standard T+2 payout.
+
+This is a new optional service. Standard payouts remain free and are not
+changing. Nothing changes for Growth or Scale merchants.
+
+----------------------------------------------------------------------
+TERMS FOR STARTER MERCHANTS
+----------------------------------------------------------------------
+
+  Fee .......................... 1.5% of the payout amount,
+                                 minimum GBP 0.50 per Instant Payout
+                                 (VAT-exempt)
+  Maximum per Instant Payout ... GBP 2,500
+  Maximum per day .............. 3 Instant Payouts
+  Currency ..................... GBP only
+  Eligibility .................. account verified and open for at least
+                                 30 days; no active payout hold or reserve
+                                 review
+  Speed ........................ usually within 30 minutes, 24/7
+
+For comparison, Growth and Scale merchants continue to pay 1.0%
+(minimum GBP 0.50), with a limit of GBP 10,000 per Instant Payout and 5 per day.
+
+Worked example (Starter): an Instant Payout of GBP 400 costs
+GBP 400 x 1.5% = GBP 6.00, so GBP 394.00 is sent to your bank account.
+An Instant Payout of GBP 20 costs the minimum GBP 0.50 (1.5% would be
+GBP 0.30), so GBP 19.50 is sent.
+
+----------------------------------------------------------------------
+WHY WE ARE NOTIFYING YOU
+----------------------------------------------------------------------
+
+This is a new optional service and does not increase any existing fee, so
+the two-month notice period for price increases does not apply.
+
+Please note that our Payments and Payouts FAQ will be updated to reflect
+this change. Until it is, this notice takes precedence over the FAQ.
+
+The Fee and Rate Schedule has been updated (row STL-003).

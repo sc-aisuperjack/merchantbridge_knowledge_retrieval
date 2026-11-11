@@ -1,0 +1,134 @@
+MERCHANTBRIDGE FINANCIAL SERVICES LTD
+DOCUMENT PRECEDENCE, CONTACT DIRECTORY AND GLOSSARY
+Document ID: MBFS-NTC-00
+Version: 1.3
+Effective date: 2026-06-01
+Last updated: 2026-11-02
+Owner: Knowledge Management
+
+[Synthetic document. MerchantBridge Financial Services Ltd is a fictional company
+created for testing and training purposes. All names, figures, phone numbers,
+reference numbers and addresses are invented.]
+
+======================================================================
+1. WHICH DOCUMENT WINS WHEN DOCUMENTS DISAGREE
+======================================================================
+
+The MerchantBridge knowledge base contains four types of document. If two
+documents give different information, apply this order of precedence
+(1 = highest):
+
+  1. SERVICE NOTICES (MBFS-NTC-01 onwards) - from their stated effective
+     date only. Before the effective date, the earlier position applies.
+  2. FEE AND RATE SCHEDULE (MBFS-DATA-01, fee-and-rate-schedule.csv) -
+     for any fee, rate, price or limit. Always check the effective_from
+     and effective_to columns against today's date.
+  3. POLICIES (MBFS-POL-01 to MBFS-POL-15).
+  4. FAQ PAGES (MBFS-FAQ-01 to MBFS-FAQ-05). FAQs are simplified summaries
+     and may be updated less often than policies. Each FAQ page shows a
+     "Last updated" date - if it is older than a relevant notice or policy,
+     the notice or policy applies.
+
+When an answer depends on a date (for example, a fee that is changing),
+give the position that applies today AND mention the upcoming change and
+its effective date.
+
+When a document says a fee or rule "applies at the effective date of this
+policy", check the schedule and notices for later changes.
+
+======================================================================
+2. WHAT THE KNOWLEDGE BASE DOES NOT COVER
+======================================================================
+
+MerchantBridge provides merchant card acquiring, payment terminals, online
+payments, payouts and the BridgeAdvance merchant cash advance. It does NOT
+provide, and support must not give information or advice about:
+
+  - business or personal current accounts, savings accounts, overdrafts,
+    loans, mortgages, credit cards or insurance;
+  - tax, accounting, legal or investment advice;
+  - pricing or features of other payment providers, or comparisons with them;
+  - Enterprise pricing (handled by the sales team only);
+  - the reasons for a payout hold where the law prevents disclosure.
+
+For these, explain politely that it is outside what MerchantBridge can help
+with, and where appropriate suggest the merchant seeks independent
+professional advice or contacts the relevant team.
+
+======================================================================
+3. CONTACT DIRECTORY
+======================================================================
+
+  Main support line ............ 020 7946 0800
+     Monday-Friday 08:00-20:00, Saturday 09:00-17:00 (UK time).
+     Closed Sundays and bank holidays in England and Wales.
+  Live chat (in dashboard) ..... Every day 07:00-23:00 (UK time)
+  24/7 Fraud & Emergency Line .. 020 7946 0999
+     (suspected fraud, account takeover, suspicious contact,
+      lost or stolen terminals)
+  Sales (new and Enterprise) ... 020 7946 0850, Monday-Friday 09:00-18:00
+  General email ................ support@merchantbridge.example
+  Complaints ................... complaints@merchantbridge.example
+  Data protection / DPO ........ dpo@merchantbridge.example
+  Security (phishing reports) .. security@merchantbridge.example
+  Developers ................... developers@merchantbridge.example
+  Service status ............... status.merchantbridge.example
+  Relay UK ..................... dial 18001 then 020 7946 0800
+  Registered office ............ 1 Example Wharf, London SE1 0XX
+
+MerchantBridge Financial Services Ltd is a fictional payment institution.
+Fictional company number 00000000. Fictional FCA reference number 999999.
+
+======================================================================
+4. GLOSSARY
+======================================================================
+
+ARN (Acquirer Reference Number)
+    A reference that lets a card issuer trace a refund or payment.
+Batch cut-off
+    22:00 UK time on a business day. Transactions after this time, or on a
+    non-business day, go into the next business day's batch.
+Business day
+    Monday to Friday, excluding bank holidays in England and Wales.
+Card-not-present (CNP) / Online
+    Payments where the card is not physically presented: hosted checkout,
+    payment links, invoices, API, plugins and MOTO.
+Chargeback
+    A reversal of a card payment initiated by the cardholder's bank.
+Chargeback ratio
+    Chargebacks received in a calendar month divided by card transactions
+    processed in that month.
+Closing reserve
+    Funds held after an account closes to cover late refunds and chargebacks.
+DCC (Dynamic Currency Conversion)
+    Letting a foreign cardholder pay in their home currency at the terminal.
+    MerchantBridge does NOT offer DCC.
+Factor rate
+    The multiplier that sets the total repayable on a BridgeAdvance.
+Holdback
+    The percentage of daily card settlements used to repay a BridgeAdvance.
+Instant Payout
+    An on-demand payout of available balance, for a fee.
+International card
+    A card issued outside the UK and EEA. Determined by the card's issuing
+    country, not by the currency of the payment or the customer's nationality.
+KYB
+    Know Your Business - verification of a business and its owners.
+MMSC
+    Minimum Monthly Service Charge (Scale plan only).
+MOTO
+    Mail order / telephone order - card details keyed into the virtual terminal.
+Net settlement
+    Gross sales minus fees, refunds, chargebacks, reserves and other deductions.
+PCI DSS
+    Payment Card Industry Data Security Standard.
+PSC
+    Person with significant control - owns or controls 25% or more.
+Rolling reserve
+    A percentage of each day's settlement held for a set period.
+SCA / 3D Secure
+    Strong Customer Authentication for online card payments.
+T+1 / T+2
+    Payout one / two business days after the processing day.
+Void
+    Cancelling a payment before the batch cut-off; no fee is charged.

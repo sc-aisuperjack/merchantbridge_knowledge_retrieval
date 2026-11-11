@@ -1,0 +1,23 @@
+[project]
+name = "mbfs-rag"
+version = "0.1.0"
+description = "Retrieval and grounding slice for the MerchantBridge knowledge assistant"
+requires-python = ">=3.14"
+dependencies = [
+    "model2vec>=0.10.0",
+    "numpy>=2.5.4",
+    "openai>=2.0.0",
+    "python-dotenv>=1.0.0",
+]
+
+[dependency-groups]
+dev = ["pytest>=9.2.0", "ruff>=0.17.4"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+
+[tool.ruff]
+line-length = 110
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I"]
