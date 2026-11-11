@@ -71,4 +71,4 @@ The prompt asked for 25 documents, but its breakdown only added up to 21, so Cla
 
 ## AI tools
 
-I used Claude to generate the dataset and the initial codebase. This allowed me to focus my effort entirely on architectural judgment, edge-case testing, and evaluation rather than typing boilerplate code.
+I used Claude to generate the dataset and the initial codebase scaffolding. This allowed me to focus my effort entirely on architectural judgment, edge-case testing, and evaluation rather than typing boilerplate code.
